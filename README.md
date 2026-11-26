@@ -8,6 +8,8 @@ generated, and every conversation is saved to your account.
 - **Frontend:** [Next.js](https://nextjs.org/) 16 (App Router), React 19, Tailwind CSS 4,
   react-hook-form + zod, Markdown rendering, light/dark theme
 
+![Chat page with a streamed reply rendered as Markdown (table and code block)](docs/screenshots/chat-light.png)
+
 ## Features
 
 - Register / log in / log out with JWT tokens stored in a cookie
@@ -18,10 +20,31 @@ generated, and every conversation is saved to your account.
 - Error card with **Retry** when a request fails
 - Three assistant modes on the API: `default`, `tutor`, `concise`
 
+## Screenshots
+
+**Dark mode.** The app follows your system theme, and the button in the header switches it. This shot
+was taken after a page refresh, so the conversation is coming back from the saved history.
+
+![Chat page in dark mode, with the conversation restored from saved history](docs/screenshots/chat-dark.png)
+
+<table>
+  <tr>
+    <th>Register</th>
+    <th>Log in</th>
+    <th>Mobile</th>
+  </tr>
+  <tr>
+    <td valign="top"><img src="docs/screenshots/register.png" alt="Register page with email, password and confirm password fields" height="320"></td>
+    <td valign="top"><img src="docs/screenshots/login.png" alt="Login page" height="320"></td>
+    <td valign="top"><img src="docs/screenshots/chat-mobile.png" alt="Chat page on a phone in dark mode" height="320"></td>
+  </tr>
+</table>
+
 ## Project structure
 
 ```
 .
+├── docs/screenshots/       images used in this README
 ├── m2-ai-backend/          FastAPI API (auth + chat)
 │   ├── main.py             the whole backend: settings, models, routes
 │   ├── requirements.txt
