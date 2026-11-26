@@ -1,0 +1,36 @@
+# Repo-wide ignores. Each app also has its own .gitignore
+# (m2-ai-backend/.gitignore, m2-ai-frontend/.gitignore).
+
+# Secrets: never commit real env files. The .env.example templates are kept.
+.env
+.env.*
+!.env.example
+
+# Local databases (hold user accounts and chat history)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Local lesson backups and patch notes (not part of the app)
+_backup-*/
+CHANGES-*.md
+
+# Dependencies and build output
+node_modules/
+.next/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

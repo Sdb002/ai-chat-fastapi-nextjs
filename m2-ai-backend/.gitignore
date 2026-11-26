@@ -1,0 +1,18 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Secrets: .env holds SECRET_KEY and GROQ_API_KEY. .env.example is the committed template.
+.env
+
+# SQLite database (users + chat history)
+*.db
+*.db-journal
+
+# Logs
+*.log

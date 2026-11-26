@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* ADDED m2d20: make Tailwind's `dark:` prefix follow the `.dark` CLASS on <html>
+   (set by next-themes) instead of the OS setting.
+   :where() adds zero specificity, so `dark:` classes don't out-rank normal ones. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light theme = the default values */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --muted-foreground: #525252; /* ADDED: secondary text. login/register already used text-muted-foreground, which did nothing before */
+  --destructive: #dc2626; /* ADDED: error red (red-600). login/register used text-destructive, also undefined before */
+  color-scheme: light; /* ADDED: tells the browser to draw scrollbars / form controls light */
+}
+
+/* CHANGED m2d20: was @media (prefers-color-scheme: dark). Now a class, so the toggle button wins over the OS.
+   Every component uses bg-background / text-foreground, so flipping these variables re-colours the whole app. */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --muted-foreground: #a3a3a3;
+  --destructive: #f87171; /* red-400: red-600 is too dark to read on #0a0a0a */
+  color-scheme: dark; /* ADDED: THE white-scrollbar fix. Without it the chat list's scrollbar stays light in dark mode */
+}
+
+/* @theme inline: turns CSS variables into Tailwind colours -> bg-background, text-destructive, ... */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground); /* ADDED */
+  --color-destructive: var(--destructive); /* ADDED */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* CHANGED: was plain Arial, which silently overrode the Geist font loaded in layout.tsx */
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}

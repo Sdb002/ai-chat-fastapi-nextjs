@@ -1,0 +1,6 @@
+fastapi[standard]==0.165.0
+sqlmodel==0.0.50
+pyjwt==2.15.1
+pwdlib[argon2]==0.4.2
+python-dotenv==1.2.4
+openai==3.57.0
