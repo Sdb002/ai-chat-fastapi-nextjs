@@ -150,3 +150,9 @@ interactive docs at `/docs` while the backend is running.
 | | `npm run build` | Production build |
 | | `npm run lint` | ESLint |
 | `m2-ai-backend` | `uvicorn main:app --reload` | Dev server on port 8000 |
+
+## Known limitations
+
+- The JWT is stored in a JavaScript-readable cookie; production should use an `httpOnly` cookie set by the backend.
+- SQLite is a single file on a single server; production needs Postgres or a persistent volume.
+- No rate limiting or refresh tokens yet.
