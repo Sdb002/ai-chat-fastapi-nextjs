@@ -1,5 +1,6 @@
 """m2-ai backend: FastAPI + SQLite + JWT auth + Groq chat (streaming) for the m2-ai-frontend (Next.js) app.
 
+Version 0.22.0 (m2d22): DATABASE_URL and CORS_ORIGINS are now required.
 Version 0.18.0 (m2d18): adds POST /chat, POST /chat/stream, GET /chat/history on top of the
 existing register / login / me routes. Auth code below is unchanged from the version on your Desktop.
 
@@ -40,11 +41,12 @@ if not SECRET_KEY:
 ALGORITHM = "HS256"
 # Must match TOKEN_LIFETIME_MINUTES in the frontend's lib/auth.ts (cookie and JWT expire together).
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./app.db")
+# m2d22: required. A default here would silently write ./app.db to Railway's wiped disk.
+DATABASE_URL = os.environ["DATABASE_URL"]  # KeyError at startup if missing (local .env has it)
 # The Next.js dev server's origins. Browsers block cross-origin calls unless they are listed here.
 CORS_ORIGINS = [
     origin.strip()
-    for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
+    for origin in os.environ["CORS_ORIGINS"].split(",")  # m2d22: required, no localhost fallback in production
     if origin.strip()
 ]
 
@@ -230,7 +232,7 @@ async def lifespan(_: FastAPI):
     yield
 
 
-app = FastAPI(title="m2-ai backend", version="0.18.0", lifespan=lifespan)
+app = FastAPI(title="m2-ai backend", version="0.22.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
